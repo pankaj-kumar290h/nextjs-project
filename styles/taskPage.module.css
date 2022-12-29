@@ -1,0 +1,29 @@
+.input {
+  margin-bottom: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 5px;
+  border: 0.5px solid gray;
+  width: 100%;
+}
+.task h2 {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.button {
+  padding: 1rem 2rem;
+  color: white;
+  background-color: black;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 100%;
+}
+.showTaskList {
+  min-height: 200px;
+}
+.link {
+  margin: auto;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+}

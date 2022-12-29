@@ -1,0 +1,108 @@
+.container {
+  display: flex;
+  background-color: white;
+  color: black;
+  justify-content: center;
+  width: 80%;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 550px;
+  min-width: 400px;
+  flex-direction: column;
+  padding: 0;
+}
+.form {
+  width: 80%;
+  border: 0.5px solid rgba(128, 128, 128, 0.518);
+  border-radius: 10px;
+
+  padding: 2rem;
+}
+.section form {
+  display: flex;
+  flex-direction: column;
+}
+.section form input {
+  margin-bottom: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 5px;
+  border: 0.5px solid rgba(128, 128, 128, 0.626);
+}
+.image {
+  flex: 1;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.image img {
+  width: 100%;
+}
+
+.section form button {
+  padding: 1rem 2rem;
+  color: white;
+  background-color: black;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.text_section {
+  padding-bottom: 1.5rem;
+}
+
+.text_section h3 {
+  font-size: 25px;
+  margin-top: 0;
+
+  font-weight: 300;
+}
+.text_section h2 {
+  font-size: 31px;
+  margin: 0;
+  font-weight: 500;
+}
+.text_section p {
+  margin-top: 0;
+  font-size: 16px;
+  font-weight: 400;
+}
+.foot_p {
+  color: gray;
+  margin: 1rem auto;
+}
+
+.foot_link {
+  font-weight: 700;
+  color: black;
+}
+
+@media screen and (max-width: 844px) {
+  .image {
+    display: none;
+  }
+}
+
+.password_input {
+  position: relative;
+}
+.password_input input {
+  width: 100%;
+}
+.icon {
+  position: absolute;
+  right: 10px;
+  top: 40%;
+
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
