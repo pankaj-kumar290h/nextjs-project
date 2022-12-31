@@ -8,7 +8,7 @@ export default function Home() {
   ////////if there is user in localStorage then redirect to main else to signin page///////////////
 
   useEffect(() => {
-    let { username, _id } = JSON.parse(localStorage.getItem("user"));
+    let { username=null, _id=null } = JSON.parse(localStorage.getItem("user"));
     if (localStorage.getItem("user")) {
       setUser(JSON.parse(localStorage.getItem("user")));
     }
