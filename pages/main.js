@@ -18,21 +18,23 @@ export default function MainPage() {
 
   //////////////fetching data for first render//////
   useEffect(() => {
-    const { username, _id, token } = JSON.parse(localStorage.getItem("user"));
-    setUser({ username, _id, token });
+    if (localStorage) {
+      const { username, _id, token } = JSON.parse(localStorage.getItem("user"));
+      setUser({ username, _id, token });
 
-    if (!username) {
-      router.push("/signin");
-    } else {
-      axios
-        .get(`${BASE_API}/getalltask?id=${_id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((data) => {
-          if (data.data.result?.todos.length) {
-            setTaskList([...data.data.result.todos]);
-          }
-        });
+      if (!username) {
+        router.push("/signin");
+      } else {
+        axios
+          .get(`${BASE_API}/getalltask?id=${_id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          .then((data) => {
+            if (data.data.result?.todos.length) {
+              setTaskList([...data.data.result.todos]);
+            }
+          });
+      }
     }
   }, []);
 
