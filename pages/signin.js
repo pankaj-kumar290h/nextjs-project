@@ -10,7 +10,7 @@ import axios from "axios";
 import { useContext } from "react";
 import UserContext from "../context/UserContext";
 import { BASE_API } from "../API";
-function signin() {
+function Signin() {
   const user = useContext(UserContext);
 
   const router = useRouter();
@@ -120,7 +120,7 @@ function signin() {
             </button>
 
             <p className={style.foot_p}>
-              Don't have an Account?{" "}
+              {`Don't have an Account?`}
               <Link className={style.foot_link} href={"/signup"}>
                 Register
               </Link>
@@ -135,4 +135,4 @@ function signin() {
   );
 }
 
-export default signin;
+export default Signin;

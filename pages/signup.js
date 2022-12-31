@@ -13,7 +13,7 @@ import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
 
-function signup() {
+function Signup() {
   const user = useContext(UserContext);
   const [showPassword, setShowPassword] = useState(false);
   const [showconfirmPassword, setShowconfiemPassword] = useState(false);
@@ -176,4 +176,4 @@ function signup() {
   );
 }
 
-export default signup;
+export default Signup;
