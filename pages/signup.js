@@ -7,6 +7,8 @@ import { useContext, useState } from "react";
 import { FaCircleNotch } from "react-icons/fa";
 import UserContext from "../context/UserContext";
 
+import { BASE_API } from "../API";
+
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -17,12 +19,13 @@ function signup() {
   const [showconfirmPassword, setShowconfiemPassword] = useState(false);
   const [loading, setloading] = useState(false);
   const [error, setError] = useState(false);
+  const [passNotEqual, setPassNotEqual] = useState(false);
   const [data, setdata] = useState({
     email: "",
     username: "",
     password: "",
     confirmPassword: "",
-    error: false,
+    error: { status: false, msg: "" },
   });
   const router = useRouter();
 
@@ -32,7 +35,7 @@ function signup() {
   };
 
   //////////on submit form
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (
@@ -45,28 +48,46 @@ function signup() {
       return;
     }
     if (data.password !== data.confirmPassword) {
-      setError(true);
+      setPassNotEqual(true);
       return;
     }
     setError(false);
     setloading(true);
-    axios.post("http://localhost:5000/signin", { data }).then((res) => {
-      console.log(res);
-      user.setUser({ username: data.username });
-      setloading(false);
-      router.push("/");
-    });
+    ////////////////////////////sending data to server/////////////
+    axios
+      .post(`${BASE_API}/signup`, {
+        username: data.username,
+        password: data.password,
+        email: data.email,
+      })
+      .then((res) => {
+        user.setUser({ username: res.data.username, _id: res.data._id });
+
+        localStorage.setItem("user", JSON.stringify(res.data));
+        setloading(false);
+
+        router.push("/");
+      }) /////////////////////////////////error handling////////////
+      .catch((error) => {
+        console.log(error.response.data.error);
+        setdata({
+          ...data,
+          error: { status: true, msg: error.response.data.error },
+        });
+        setloading(false);
+      });
   };
 
-  //////////show password
+  //////////show password//////////
   const handleShow = () => {
     setShowPassword(!showPassword);
   };
 
-  //////////show confirm password
+  //////////show confirm password////////////
   const handleConfirmShow = () => {
     setShowconfiemPassword(!showconfirmPassword);
   };
+  /////////////////////////////////////////////
   return (
     <div className={style.container}>
       <section className={style.section}>
@@ -129,19 +150,18 @@ function signup() {
               )}
             </div>
 
-            <div>
-              <input type={"checkbox"} />
-              <label>Remember me</label>
-            </div>
             {error && <p style={{ color: "red" }}>All field require</p>}
-            {data.error && (
-              <p style={{ color: "red" }}>Somethin went wrong plz try again.</p>
+            {data.error.status && (
+              <p style={{ color: "red" }}>{data.error.msg}</p>
+            )}
+            {passNotEqual && (
+              <p style={{ color: "red" }}>Passwords are not equla</p>
             )}
             <button onClick={handleSubmit}>
               {loading ? <FaCircleNotch className={extra.loding} /> : "Signup"}
             </button>
             <p className={style.foot_p}>
-              Already have an Account?{" "}
+              Already have an Account?
               <Link className={style.foot_link} href={"/signin"}>
                 Signin
               </Link>

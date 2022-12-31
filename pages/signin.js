@@ -9,6 +9,7 @@ import Link from "next/link";
 import axios from "axios";
 import { useContext } from "react";
 import UserContext from "../context/UserContext";
+import { BASE_API } from "../API";
 function signin() {
   const user = useContext(UserContext);
 
@@ -21,19 +22,19 @@ function signin() {
     error: false,
   });
 
-  ////////////handle form data
+  ////////////handle form data////////////
 
   const handlechange = (name) => (event) => {
     setUserInfo({ ...userInfo, [name]: event.target.value });
   };
 
-  ///////////shandle show password
+  ///////////shandle show password/////////////
   const [showPassword, setShowPassword] = useState(false);
   const handleShow = () => {
     setShowPassword(!showPassword);
   };
 
-  //////////handle submit botton
+  //////////handle submit botton/////////////////////
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (userInfo.name == "" || userInfo.password === "") {
@@ -42,16 +43,25 @@ function signin() {
     }
     setError(false);
     setUserInfo({ ...userInfo, loding: true });
-    console.log(userInfo);
 
-    axios.post("http://localhost:5000/signin", { userInfo }).then((res) => {
-      setUserInfo({ ...userInfo, loding: false });
+    const { username, password } = userInfo;
 
-      console.log(res.data.userInfo);
-      const { username } = res.data.userInfo;
-      user.setUser({ username: username });
-      router.push("/");
-    });
+    axios
+      .post(`${BASE_API}/signin`, {
+        username: username,
+        password: password,
+      })
+      .then((res) => {
+        setUserInfo({ ...userInfo, loding: false });
+
+        const { username, _id, token } = res.data;
+        user.setUser({ username: username, _id: _id, token: token });
+        localStorage.setItem("user", JSON.stringify(res.data));
+        router.push("/");
+      })
+      .catch((error) => {
+        setUserInfo({ ...userInfo, error: true, loding: false });
+      });
   };
   return (
     <div className={style.container}>

@@ -3,10 +3,13 @@ import UserContext from "../context/UserContext";
 import { useState } from "react";
 
 function MyApp({ Component, pageProps }) {
+  /////////////// for useContex hook///////
   const [user, setUser] = useState({
-    username: "pankaj",
+    username: "",
+    _id: "",
+    token: "",
+    email: "",
   });
-  console.log(user);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
