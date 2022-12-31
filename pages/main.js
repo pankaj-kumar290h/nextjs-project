@@ -18,7 +18,7 @@ export default function MainPage() {
 
   //////////////fetching data for first render//////
   useEffect(() => {
-    const { username, _id, token } = JSON.parse(localStorage.getItem("user"));
+    const { username, _id, token } = JSON.parse(window.localStorage.getItem("user"));
     setUser({ username, _id, token });
 
     if (!username) {
