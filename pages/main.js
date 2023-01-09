@@ -73,7 +73,7 @@ export default function MainPage() {
             <p>Good to see you hear!</p>
           </div>
           <div className={taskPage.task}>
-            <h2>{`Task for the ${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`}</h2>
+            <h2>{`Task for the ${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`}</h2>
             <div className={taskPage.showTaskList}>
               <ul>
                 {taskList.map((e, i) => (
